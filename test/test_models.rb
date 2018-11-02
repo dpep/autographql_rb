@@ -9,12 +9,12 @@ class ModelTest < Minitest::Test
   def test_stuff
     assert_equal(
       ['Daniel', 'Bjorn'],
-      Owner.all.pluck(:name)
+      Person.all.pluck(:name)
     )
 
     assert_equal(
       ['Shelby', 'Brownie'],
-      Owner.find_by(name: 'Daniel').pets.pluck(:name)
+      Person.find_by(name: 'Daniel').pets.pluck(:name)
     )
   end
 

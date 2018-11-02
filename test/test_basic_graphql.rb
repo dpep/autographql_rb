@@ -8,8 +8,8 @@ require_relative 'support/db/seed'
 ###   Setup   ###
 
 # PetType not defined yet, so must use .define style
-OwnerType = GraphQL::ObjectType.define do
-  name 'Owner'
+PersonType = GraphQL::ObjectType.define do
+  name 'Person'
 
   field :id, types.ID
   field :name, types.String
@@ -20,19 +20,19 @@ end
 class PetType < GraphQL::Schema::Object
   field :id, ID, null: false
   field :name, String, null: false
-  field :owner, OwnerType, null: true
+  field :person, PersonType, null: true
 end
 
 
 class QueryType < GraphQL::Schema::Object
   # describe the field signature:
-  field :owner, OwnerType, null: true do
+  field :person, PersonType, null: true do
     argument :id, ID, required: true
   end
 
   # then provide an implementation:
-  def owner(id:)
-    Owner.find(id)
+  def person(id:)
+    Person.find(id)
   end
 end
 
@@ -46,15 +46,15 @@ end
 class ModelTest < Minitest::Test
 
   def test_stuff
-    assert_equal('Daniel', Owner.first.name)
+    assert_equal('Daniel', Person.first.name)
     assert_equal(
       ['Shelby', 'Brownie'],
-      Owner.first.pets.pluck(:name)
+      Person.first.pets.pluck(:name)
     )
 
     $query = "
     {
-      owner(id: 1) {
+      person(id: 1) {
         name
         pets { name }
       }
@@ -69,7 +69,7 @@ class ModelTest < Minitest::Test
           { 'name' => 'Brownie' },
         ],
       },
-      res['owner']
+      res['person']
     )
   end
 

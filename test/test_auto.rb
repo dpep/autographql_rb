@@ -8,7 +8,7 @@ require_relative 'support/db/seed'
 class AutoGQLTest < Minitest::Test
 
   def test_type_registration
-    assert AutoGraphQL::ObjectTypes.include? Owner.graphql
+    assert AutoGraphQL::ObjectTypes.include? Person.graphql
     assert AutoGraphQL::ObjectTypes.include? Pet.graphql
   end
 
@@ -21,15 +21,15 @@ class AutoGQLTest < Minitest::Test
 
     query = "
     {
-      owner(id: 1) { name }
+      person(id: 1) { name }
     }"
     res = schema.execute(query).values.first
 
     assert_equal(
       {
-        'name' => Owner.find(1).name,
+        'name' => Person.find(1).name,
       },
-      res['owner']
+      res['person']
     )
 
 

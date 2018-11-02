@@ -5,26 +5,26 @@ require_relative 'db'
 
 # set up database schema
 ActiveRecord::Schema.define do
-  create_table :owners do |t|
+  create_table :people do |t|
     t.string :name
   end
 
   create_table :pets do |t|
     t.string :name
-    t.integer :owner_id
+    t.integer :person_id
   end
 end
 
 
 # define models
-class Owner < ActiveRecord::Base
+class Person < ActiveRecord::Base
   has_many :pets
 end
 
 class Pet < ActiveRecord::Base
-  belongs_to :owner
+  belongs_to :person
 end
 
 
-Owner.send :graphql
+Person.send :graphql
 Pet.send :graphql
