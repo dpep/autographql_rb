@@ -1,7 +1,7 @@
 AutoGraphQL
 ======
 
-Automagically generate GraphQL types and queries
+Automagically generate GraphQL types and queries for Active Record models
 
 #### Usage
 ```
