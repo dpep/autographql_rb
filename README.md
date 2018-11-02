@@ -3,10 +3,6 @@ AutoGraphQL
 
 Automagically generate GraphQL types and queries
 
-#### Install
-```gem install autographql```
-
-
 #### Usage
 ```
 require 'active_record'
@@ -27,8 +23,6 @@ ActiveRecord::Schema.define do
 end
 
 class Person < ActiveRecord::Base
-  attr_accessor :name
-  
   # register this model with AutoGraphQL
   graphql
 end
@@ -53,4 +47,4 @@ query = "
   }
 }"
 
-'Daniel' == Schema.execute(query).values.first['person']['name']
+puts 'Daniel' == Schema.execute(query).values.first['person']['name']
