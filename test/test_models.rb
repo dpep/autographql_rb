@@ -1,19 +1,10 @@
 require 'minitest/autorun'
+
 require_relative '../lib/autographql'
-require_relative 'support/db'
+require_relative 'support/db/seed'
 
 
 class ModelTest < Minitest::Test
-
-  def setup
-    daniel = Owner.create name: 'Daniel'
-    daniel.pets.create name: 'Shelby'
-    daniel.pets.create name: 'Brownie'
-
-    bjorn = Owner.create name: 'Bjorn'
-    bjorn.pets.create name: 'Spot'
-  end
-
 
   def test_stuff
     assert_equal(

@@ -21,8 +21,10 @@ Gem::Specification.new do |s|
   s.test_files  = Dir.glob('test/**/test_*')
 
   s.add_runtime_dependency 'activerecord'
+  s.add_runtime_dependency 'graphql'
 
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'byebug'
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'rake'
+  s.add_development_dependency 'sqlite3'
 end

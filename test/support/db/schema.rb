@@ -31,3 +31,7 @@ end
 class ::Pet < ActiveRecord::Base
   belongs_to :owner
 end
+
+
+Owner.send :graphql_type, name: 'DaOwner'
+Pet.send :graphql_type, name: 'Pet'
