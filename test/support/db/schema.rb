@@ -26,5 +26,5 @@ class ::Pet < ActiveRecord::Base
 end
 
 
-Owner.send :graphql, name: 'DaOwner'
-Pet.send :graphql, name: 'Pet'
+Owner.send :graphql
+Pet.send :graphql
