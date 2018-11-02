@@ -1,3 +1,7 @@
+require 'graphql'
+require 'set'
+
+
 module AutoGraphQL
   module ObjectType
     protected
@@ -9,7 +13,7 @@ module AutoGraphQL
 
       # figure out which active record fields to expose
       fields = Set.new(
-        (fields.empty? ? columns.keys : fields).map &:to_sym
+        (fields.empty? ? columns.keys : fields).map(&:to_sym)
       )
 
       # remove blacklisted fields

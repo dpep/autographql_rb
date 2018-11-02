@@ -14,7 +14,7 @@ module AutoGraphQL
     super unless [ :QueryType, :ObjectTypes ].include? const
 
     if :ObjectTypes == const
-      return @@models.map &:graphql
+      return @@models.map(&:graphql)
     end
 
     Class.new GraphQL::Schema::Object do
