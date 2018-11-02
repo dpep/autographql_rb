@@ -1,16 +1,9 @@
-require 'sqlite3'
 require 'active_record'
 
-
-# create in-memory database and connect
-ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: ':memory:'
-)
+require_relative 'db'
 
 
 # set up database schema
-ActiveRecord::Migration.verbose = false
 ActiveRecord::Schema.define do
   create_table :owners do |t|
     t.string :name
