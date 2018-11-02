@@ -17,11 +17,11 @@ end
 
 
 # define models
-class ::Owner < ActiveRecord::Base
+class Owner < ActiveRecord::Base
   has_many :pets
 end
 
-class ::Pet < ActiveRecord::Base
+class Pet < ActiveRecord::Base
   belongs_to :owner
 end
 
