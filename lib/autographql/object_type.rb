@@ -9,7 +9,7 @@ module AutoGraphQL
     def graphql name: self.name, description: '', fields: [], exclude: []
       columns = Hash[columns_hash.map {|k,v| [k.to_sym, v] }]
       belongs_to = reflect_on_all_associations(:belongs_to)
-      # has_many = reflect_on_all_associations(:has_many)
+      has_many = reflect_on_all_associations(:has_many)
 
       # figure out which active record fields to expose
       fields = Set.new(
@@ -20,10 +20,11 @@ module AutoGraphQL
       fields -= exclude.map(&:to_sym)
 
       # remove relationships for now
-      fields -= belongs_to.map(&:association_foreign_key).map(&:to_sym)
-      # exclude += belongs_to.map(&:association_primary_key).map(&:to_sym)
+      fields -= belongs_to.map(&:name)
+      fields -= has_many.map(&:name)
 
 
+      # create type
       gql_obj = GraphQL::ObjectType.define do
         name name
         description description
