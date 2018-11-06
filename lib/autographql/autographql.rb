@@ -7,8 +7,17 @@ module AutoGraphQL
   @@models = {}
 
 
-  def register model, opts
-    @@models[model] = opts
+  def register model, options = {}
+    # sanitize options
+    @@models[model] = {
+      name: options.fetch(:name, model.name),
+      description: options.fetch(:description, ''),
+      fields: options.fetch(
+        :fields,
+        model.columns_hash.keys
+      ).map(&:to_sym),
+      exclude: options.fetch(:exclude, []).map(&:to_sym),
+    }
   end
 
 

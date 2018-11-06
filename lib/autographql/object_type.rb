@@ -6,18 +6,11 @@ module AutoGraphQL
   module ObjectType
     protected
 
-    def graphql name: self.name, description: '', fields: [], exclude: []
+    def graphql options = {}
       # register Active Record model.  delay schema generation
       # until class and associations have been fully defined
 
-      opts = {
-        name: name,
-        description: description,
-        fields: fields,
-        exclude: exclude,
-      }
-
-      AutoGraphQL.register self, opts
+      AutoGraphQL.register self, options
     end
 
   end

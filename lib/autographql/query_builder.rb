@@ -7,14 +7,14 @@ module AutoGraphQL
     extend self
 
 
-    def build models
+    def build models_and_opts
       # dynamically create a QueryType subclass
       Class.new GraphQL::Schema::Object do
         def self.name
           'AutoGraphQL::QueryType'
         end
 
-        models.each do |model, opts|
+        models_and_opts.each do |model, opts|
           type = AutoGraphQL::QueryBuilder.build_type model, opts
 
           # define field for this type
@@ -32,31 +32,29 @@ module AutoGraphQL
     end
 
 
-    def build_type model, name:, description:, fields:, exclude:
-      column_types = Hash[model.columns_hash.map do |k,v|
-        [ k.to_sym, v.type ]
-      end]
-
+    def build_type model, opts
       belongs_to = model.reflect_on_all_associations(:belongs_to)
       has_many = model.reflect_on_all_associations(:has_many)
 
       # determine which active record fields to expose
-      fields = Set.new(
-        (fields.empty? ? column_types.keys : fields).map(&:to_sym)
-      )
+      fields = Set.new(opts[:fields])
 
       # remove blacklisted fields
-      fields -= exclude.map(&:to_sym)
+      fields -= opts[:exclude].map(&:to_sym)
 
       # remove relationships for now
       fields -= belongs_to.map(&:name)
       fields -= has_many.map(&:name)
 
 
+      column_types = Hash[model.columns_hash.map do |k,v|
+        [ k.to_sym, v.type ]
+      end]
+
       # create type
       GraphQL::ObjectType.define do
-        name name
-        description description
+        name opts[:name]
+        description opts[:description]
 
         fields.each do |f|
           type = AutoGraphQL::QueryBuilder.convert_type column_types[f]
