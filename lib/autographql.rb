@@ -1,6 +1,7 @@
 require 'active_record'
 
 require_relative 'autographql/autographql'
+require_relative 'autographql/object_type'
 
 
 module AutoGraphQL
