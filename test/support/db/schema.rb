@@ -19,6 +19,7 @@ end
 # define models
 class Person < ActiveRecord::Base
   has_many :pets
+  graphql
 end
 
 class Pet < ActiveRecord::Base
@@ -26,5 +27,5 @@ class Pet < ActiveRecord::Base
 end
 
 
-Person.send :graphql
-Pet.send :graphql
+# AutoGraphQL.register Person
+AutoGraphQL.register Pet
