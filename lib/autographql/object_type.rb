@@ -45,6 +45,8 @@ module AutoGraphQL
 
       # register new GraphQL::ObjectType
       AutoGraphQL.send :register, self
+
+      gql_obj
     end
 
 
