@@ -3,11 +3,33 @@ AutoGraphQL
 
 Automagically generate GraphQL types and queries for Active Record models
 
-#### Usage
+####  Usage
 ```
 require 'active_record'
 require 'autographql'
 
+
+class User < ActiveRecord::Base
+  # register this model with AutoGraphQL
+  graphql
+end
+
+
+class Profile < ActiveRecord::Base
+  graphql fields: [ :pic, :url ]
+end
+
+
+puts GraphQL::Schema::Printer.print_schema(
+  GraphQL::Schema.define(query: AutoGraphQL::QueryType)
+)
+
+
+```
+####  Full Example
+```
+require 'active_record'
+require 'autographql'
 
 # create in-memory database and connect
 ActiveRecord::Base.establish_connection(
