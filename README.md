@@ -5,7 +5,6 @@ Automagically generate GraphQL types and queries for Active Record models
 
 ####  Usage
 ```
-require 'active_record'
 require 'autographql'
 
 
@@ -14,8 +13,12 @@ class User < ActiveRecord::Base
   graphql
 end
 
+# or via
+AutoGraphQL.register User
+
 
 class Profile < ActiveRecord::Base
+  # only show specific fields
   graphql fields: [ :pic, :url ]
 end
 
