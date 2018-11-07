@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 end
 
 
+# generate query schema
 puts GraphQL::Schema::Printer.print_schema(
   GraphQL::Schema.define(query: AutoGraphQL::QueryType)
 )
