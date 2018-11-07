@@ -54,11 +54,17 @@ module AutoGraphQL
         next unless fields.include? field.name.to_sym
         next unless type_map[field.klass]
 
+        field_type = type_map[field.klass]
+        if has_many.include? field
+          # make into a list
+          field_type = field_type.to_list_type.to_non_null_type
+        end
+
         # create relationship field
         gql_field = GraphQL::Field.define do
           p type_map[field.klass].class
           name field.name.to_s
-          type type_map[field.klass]
+          type field_type
         end
 
         type.fields[field.name.to_s] = gql_field
