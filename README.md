@@ -16,10 +16,9 @@ end
 # or via
 AutoGraphQL.register User
 
-
-class Profile < ActiveRecord::Base
-  # only show specific fields
-  graphql fields: [ :pic, :url ]
+# or only show specific fields
+class User < ActiveRecord::Base
+  graphql fields: [ :name, :pic ]
 end
 
 
