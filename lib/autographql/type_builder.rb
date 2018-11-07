@@ -62,7 +62,6 @@ module AutoGraphQL
 
         # create relationship field
         gql_field = GraphQL::Field.define do
-          p type_map[field.klass].class
           name field.name.to_s
           type field_type
         end
