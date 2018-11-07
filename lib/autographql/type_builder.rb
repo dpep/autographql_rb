@@ -7,13 +7,24 @@ module AutoGraphQL
     extend self
 
 
-    def build model, opts
-      # determine which active record fields to expose
-      fields = Set.new(opts[:fields])
+    def build models_and_opts
+      # first build all objects
+      type_map = {}
 
-      # remove blacklisted fields
-      fields -= opts[:exclude].map(&:to_sym)
+      models_and_opts.each do |model, opts|
+        type_map[model] = build_type model, opts
+      end
 
+      # build relationships between objects
+      type_map.each do |model, type|
+        relate type, models_and_opts[model][:fields], type_map
+      end
+
+      type_map
+    end
+
+
+    def build_type model, opts
       column_types = Hash[model.columns_hash.map do |k,v|
         [ k.to_sym, convert_type(v.type) ]
       end]
@@ -23,9 +34,34 @@ module AutoGraphQL
         name opts[:name]
         description opts[:description]
 
-        fields.each do |f|
+        opts[:fields].each do |f|
+          # skip relationships
+          next unless column_types[f]
+
           field f, column_types[f]
         end
+      end
+    end
+
+
+    def relate type, fields, type_map
+      model = type_map.key type
+
+      belongs_to = model.reflect_on_all_associations(:belongs_to)
+      has_many = model.reflect_on_all_associations(:has_many)
+
+      (has_many + belongs_to).each do |field|
+        next unless fields.include? field.name.to_sym
+        next unless type_map[field.klass]
+
+        # create relationship field
+        gql_field = GraphQL::Field.define do
+          p type_map[field.klass].class
+          name field.name.to_s
+          type type_map[field.klass]
+        end
+
+        type.fields[field.name.to_s] = gql_field
       end
     end
 

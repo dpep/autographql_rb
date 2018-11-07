@@ -16,13 +16,7 @@ module AutoGraphQL
           'AutoGraphQL::QueryType'
         end
 
-        type_map = Hash[models_and_opts.map do |model, opts|
-          [
-            model,
-            AutoGraphQL::TypeBuilder.build(model, opts)
-          ]
-        end]
-
+        type_map = AutoGraphQL::TypeBuilder.build(models_and_opts)
 
         type_map.each do |model, type|
           # define field for this type
