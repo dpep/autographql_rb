@@ -24,6 +24,8 @@ module AutoGraphQL
     end
 
 
+    private
+
     def build_type model, opts
       column_types = Hash[model.columns_hash.map do |k,v|
         [ k.to_sym, convert_type(v.type) ]
