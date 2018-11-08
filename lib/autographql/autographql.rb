@@ -32,6 +32,7 @@ module AutoGraphQL
       name: name,
       description: options.fetch(:description, ''),
       fields: fields,
+      methods: options.fetch(:methods, [])
     }
   end
 

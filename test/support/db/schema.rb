@@ -34,7 +34,11 @@ class Person < ActiveRecord::Base
   has_many :pets
   has_one :location, :as => :object
 
-  graphql
+  graphql methods: [ :happy ]
+
+  def happy
+    true
+  end
 end
 
 class Pet < ActiveRecord::Base
