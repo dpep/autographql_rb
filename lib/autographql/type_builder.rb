@@ -30,9 +30,9 @@ module AutoGraphQL
     private
 
     def build_type model, opts
-      column_types = Hash[model.columns_hash.map do |k,v|
-        next unless opts[:fields].include? k.to_sym
-        [ k.to_sym, convert_type(v.type) ]
+      column_types = Hash[model.columns_hash.map do |name, column|
+        next unless opts[:fields].include? name.to_sym
+        [ name.to_sym, convert_type(model, column) ]
       end]
 
       # create type
@@ -79,8 +79,8 @@ module AutoGraphQL
 
 
     # convert Active Record type to GraphQL type
-    def convert_type type
-      case type
+    def convert_type model, column
+      case column.type
       when :boolean
         GraphQL::BOOLEAN_TYPE
       when :integer
@@ -99,7 +99,9 @@ module AutoGraphQL
         GraphQL::Types::ISO8601DateTime
       else
         # todo specify with model/field
-        raise TypeError.new "unsupported type: #{type}"
+        raise TypeError.new(
+          "unsupported type: '#{column.type}' for #{model.name}::#{column.name}"
+        )
       end
     end
 
