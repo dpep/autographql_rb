@@ -13,3 +13,5 @@ GraphQL::Types::DECIMAL = GraphQL::ScalarType.define do
     end
   end
 end
+
+# TODO: include precision
