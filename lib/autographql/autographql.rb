@@ -9,22 +9,22 @@ module AutoGraphQL
 
   def register model, options = {}
     # sanitize options
+
+    name = options.fetch(:name, model.name)
+    name.gsub! /:/, '_'
+
     exclude = options.fetch(:exclude, []).map(&:to_sym)
     fields = options.fetch(:fields) do
-      fields = model.columns_hash.keys
+      res = model.columns_hash.keys
 
       # add relationships
-      fields += model.reflect_on_all_associations(
-        :has_many
-      ).map &:name
-
-      fields += model.reflect_on_all_associations(
-        :belongs_to
-      ).map &:name
+      res += [ :has_one, :has_many, :belongs_to ].map do |type|
+        model.reflect_on_all_associations(type).map &:name
+      end.flatten
     end.map(&:to_sym) - exclude
 
     @@models[model] = {
-      name: options.fetch(:name, model.name),
+      name: name,
       description: options.fetch(:description, ''),
       fields: fields,
     }
