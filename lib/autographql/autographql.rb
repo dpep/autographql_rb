@@ -14,7 +14,12 @@ module AutoGraphQL
     name.gsub! /:/, '_'
 
     exclude = options.fetch(:exclude, []).map(&:to_sym)
-    fields = options.fetch(:fields) do
+
+    # add 'id' column by default
+    fields = [ :id ]
+
+    # either use user specified fields or default to all
+    fields += options.fetch(:fields) do
       res = model.columns_hash.keys
 
       # add relationships
