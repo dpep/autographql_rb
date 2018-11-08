@@ -54,6 +54,7 @@ class Pet < ActiveRecord::Base
 end
 
 class Location < ActiveRecord::Base
+  belongs_to :location, :foreign_key => :object_id, :foreign_type => :object_type
 end
 
 

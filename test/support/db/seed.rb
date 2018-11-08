@@ -1,9 +1,10 @@
 require_relative 'schema'
 
 
-sf = Location.create name: 'San Francisco', founded: 'June 29, 1776'
-oakland = Location.create name: 'Oakland', founded: 'Jan 1, 1852'
-fresno = Location.create name: 'Fresno', founded: 'Jan 1, 1872'
+us = Location.create name: 'United States', founded: 'July 4, 1776'
+sf = Location.create name: 'San Francisco', founded: 'June 29, 1776', location: us
+oakland = Location.create name: 'Oakland', founded: 'Jan 1, 1852', location: us
+fresno = Location.create name: 'Fresno', founded: 'Jan 1, 1872', location: us
 
 daniel = Person.create name: 'Daniel'
 daniel.location = sf
