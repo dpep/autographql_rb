@@ -38,7 +38,14 @@ class Person < ActiveRecord::Base
     100
   end
 
-  graphql methods: { awesomeness: GraphQL::INT_TYPE }
+  def friend
+    self.class.where.not(id: id).first
+  end
+
+  graphql methods: {
+    awesomeness: GraphQL::INT_TYPE,
+    friend: Person,
+  }
 end
 
 class Pet < ActiveRecord::Base

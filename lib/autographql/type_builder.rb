@@ -19,6 +19,10 @@ module AutoGraphQL
         type_map[model] = build_type model, opts
       end
 
+      models_and_opts.each do |model, opts|
+        build_type_methods type_map[model], opts[:methods], type_map
+      end
+
       # build relationships between objects
       type_map.each do |model, type|
         relate type, models_and_opts[model][:fields], type_map
@@ -47,10 +51,24 @@ module AutoGraphQL
 
           field f, column_types[f]
         end
+      end
+    end
 
-        opts[:methods].each do |name, type|
-          field name, type
+
+    def build_type_methods gql_type, methods, type_map
+      methods.each do |name, type|
+        name = name.to_s
+
+        if type_map.include? type
+          type = type_map[type]
         end
+
+        field = GraphQL::Field.define do
+          name name
+          type type
+        end
+
+        gql_type.fields[name] = field
       end
     end
 
