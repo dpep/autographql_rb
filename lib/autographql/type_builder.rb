@@ -1,6 +1,7 @@
 require 'graphql'
 require 'set'
 
+require_relative 'types/date'
 require_relative 'types/decimal'
 require_relative 'types/json'
 
@@ -82,6 +83,7 @@ module AutoGraphQL
     def convert_type model, column
       {
         boolean: GraphQL::BOOLEAN_TYPE,
+        date: GraphQL::Types::DATE,
         datetime: GraphQL::Types::ISO8601DateTime,
         decimal: GraphQL::Types::DECIMAL,
         float: GraphQL::FLOAT_TYPE,

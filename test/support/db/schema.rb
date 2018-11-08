@@ -14,14 +14,17 @@ ActiveRecord::Schema.define do
 
   create_table :pets do |t|
     t.string :name
+
     t.integer :person_id
     t.integer :location_id
   end
 
   create_table :locations do |t|
+    t.string :name
+    t.date :founded
+
     t.integer :object_id
     t.string :object_type
-    t.string :name
   end
 end
 
