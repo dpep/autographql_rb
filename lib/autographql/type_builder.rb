@@ -31,6 +31,7 @@ module AutoGraphQL
 
     def build_type model, opts
       column_types = Hash[model.columns_hash.map do |k,v|
+        next unless opts[:fields].include? k.to_sym
         [ k.to_sym, convert_type(v.type) ]
       end]
 
@@ -97,6 +98,7 @@ module AutoGraphQL
       when :datetime
         GraphQL::Types::ISO8601DateTime
       else
+        # todo specify with model/field
         raise TypeError.new "unsupported type: #{type}"
       end
     end

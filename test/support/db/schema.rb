@@ -7,6 +7,9 @@ require_relative 'db'
 ActiveRecord::Schema.define do
   create_table :people do |t|
     t.string :name
+    t.json :data
+    t.decimal :age
+    t.datetime :created_at, default: -> { 'CURRENT_TIMESTAMP' }
   end
 
   create_table :pets do |t|

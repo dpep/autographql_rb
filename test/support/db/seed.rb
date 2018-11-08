@@ -7,6 +7,9 @@ daniel = Person.create name: 'Daniel'
 daniel.pets.create name: 'Shelby'
 daniel.pets.create name: 'Brownie'
 daniel.location = sf
+daniel.age = 85
+daniel.data = [ 1, 2, 3 ]
+daniel.save
 
 
 bjorn = Person.create name: 'Bjorn'
