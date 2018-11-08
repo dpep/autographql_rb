@@ -31,9 +31,9 @@ module AutoGraphQL
 
     def build_type model, opts
       column_types = Hash[model.columns_hash.map do |name, column|
-        next unless opts[:fields].include? name.to_sym
+        next nil unless opts[:fields].include? name.to_sym
         [ name.to_sym, convert_type(model, column) ]
-      end]
+      end.compact]
 
       # create type
       GraphQL::ObjectType.define do
