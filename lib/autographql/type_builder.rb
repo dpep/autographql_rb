@@ -53,9 +53,10 @@ module AutoGraphQL
       model = type_map.key type
 
       belongs_to = model.reflect_on_all_associations(:belongs_to)
+      has_one = model.reflect_on_all_associations(:has_one)
       has_many = model.reflect_on_all_associations(:has_many)
 
-      (has_many + belongs_to).each do |field|
+      (belongs_to + has_one + has_many).each do |field|
         next unless fields.include? field.name.to_sym
         next unless type_map[field.klass]
 
