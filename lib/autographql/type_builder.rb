@@ -80,25 +80,16 @@ module AutoGraphQL
 
     # convert Active Record type to GraphQL type
     def convert_type model, column
-      case column.type
-      when :boolean
-        GraphQL::BOOLEAN_TYPE
-      when :integer
-        GraphQL::INT_TYPE
-      when :float
-        GraphQL::FLOAT_TYPE
-      when :string
-        GraphQL::STRING_TYPE
-      when :decimal
-        GraphQL::Types::DECIMAL
-      when :json
-        GraphQL::Types::JSON
-      when :text
-        GraphQL::STRING_TYPE
-      when :datetime
-        GraphQL::Types::ISO8601DateTime
-      else
-        # todo specify with model/field
+      {
+        boolean: GraphQL::BOOLEAN_TYPE,
+        datetime: GraphQL::Types::ISO8601DateTime,
+        decimal: GraphQL::Types::DECIMAL,
+        float: GraphQL::FLOAT_TYPE,
+        integer: GraphQL::INT_TYPE,
+        json: GraphQL::Types::JSON,
+        string: GraphQL::STRING_TYPE,
+        text: GraphQL::STRING_TYPE,
+      }.fetch column.type do
         raise TypeError.new(
           "unsupported type: '#{column.type}' for #{model.name}::#{column.name}"
         )
