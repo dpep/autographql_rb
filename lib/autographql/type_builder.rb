@@ -84,6 +84,14 @@ module AutoGraphQL
         GraphQL::FLOAT_TYPE
       when :string
         GraphQL::STRING_TYPE
+      when :decimal
+        GraphQL::Types::DECIMAL
+      when :json
+        GraphQL::Types::JSON
+      when :text
+        GraphQL::STRING_TYPE
+      when :datetime
+        GraphQL::Types::ISO8601DateTime
       else
         raise TypeError.new "unsupported type: #{type}"
       end
