@@ -47,6 +47,10 @@ module AutoGraphQL
 
           field f, column_types[f]
         end
+
+        opts[:methods].each do |name, type|
+          field name, type
+        end
       end
     end
 

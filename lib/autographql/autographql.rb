@@ -15,7 +15,7 @@ module AutoGraphQL
 
     exclude = options.fetch(:exclude, []).map(&:to_sym)
 
-    # add 'id' column by default
+    # add `id' column by default
     fields = [ :id ]
 
     # either use user specified fields or default to all
@@ -28,11 +28,21 @@ module AutoGraphQL
       end.flatten
     end.map(&:to_sym) - exclude
 
+    model_methods = options.fetch(:methods, {})
+    # ensure methods actually exist
+    model_methods.each do |name, type|
+      unless model.method_defined? name
+        raise NoMethodError.new(
+          "undefined method `#{name}' for #{model}"
+        )
+      end
+    end
+
     @@models[model] = {
       name: name,
       description: options.fetch(:description, ''),
       fields: fields,
-      methods: options.fetch(:methods, [])
+      methods: model_methods,
     }
   end
 
