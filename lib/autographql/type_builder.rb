@@ -1,6 +1,9 @@
 require 'graphql'
 require 'set'
 
+require_relative 'types/decimal'
+require_relative 'types/json'
+
 
 module AutoGraphQL
   module TypeBuilder
