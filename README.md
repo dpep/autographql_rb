@@ -76,7 +76,7 @@ puts 'Daniel' == Schema.execute(query).values.first['person']['name']
 ```
 
 
-###  Thanks To
+##  Thanks To
 Daniel O'Brien: https://github.com/dobs/autographql
 
 Andy Kriger: https://github.com/rmosolgo/graphql-ruby/issues/945
