@@ -5,7 +5,7 @@ require_relative 'autographql/object_type'
 
 
 module AutoGraphQL
-  VERSION = '0.0.2'
+  VERSION = '0.0.3'
 end
 
 
