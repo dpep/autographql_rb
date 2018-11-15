@@ -5,9 +5,15 @@ module AutoGraphQL
   extend self
 
   @@models = {}
+  @@query_type = nil
+  @@type_map = nil
 
 
   def register model, options = {}
+    unless @@query_type.nil?
+      raise RuntimeError, 'registration not allowed after generation.  please register model sooner'
+    end
+
     # sanitize options
 
     name = options.fetch(:name, model.name)
@@ -47,15 +53,28 @@ module AutoGraphQL
   end
 
 
-  # dynamically generate ::QueryType
+  protected
+
   def const_missing const
     case const
+    when :Types
+      gen_types
     when :QueryType
-      AutoGraphQL::QueryBuilder.build @@models
+      gen_query
     else
       super
     end
   end
 
+
+  private
+
+  def gen_types
+    @@type_map ||= AutoGraphQL::TypeBuilder.build @@models
+  end
+
+  def gen_query
+    @@query_type ||= AutoGraphQL::QueryBuilder.build gen_types
+  end
 
 end

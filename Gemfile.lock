@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    autographql (0.0.2)
+    autographql (0.0.3)
       activerecord
       graphql
 
