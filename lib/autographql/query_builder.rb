@@ -17,6 +17,8 @@ module AutoGraphQL
         end
 
         type_map.each do |model, type|
+          # for each model, create an lookup function by ID
+
           # define field for this type
           field type.name.downcase, type, null: true do
             argument :id, GraphQL::Types::ID, required: true
