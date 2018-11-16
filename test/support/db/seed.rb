@@ -19,5 +19,9 @@ brownie = Pet.create name: 'Brownie', location: fresno
 daniel.pets << brownie
 
 
-bjorn = Person.create name: 'Bjorn'
+bjorn = Person.create name: 'Bjorn', location: oakland
 bjorn.pets.create name: 'Spot'
+
+
+josh = Person.create name: 'Josh', location: oakland
+josh = Person.create name: 'Mel', location: oakland
