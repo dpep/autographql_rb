@@ -38,13 +38,13 @@ class Person < ActiveRecord::Base
     100
   end
 
-  def friend
-    self.class.where.not(id: id).first
+  def friends
+    self.class.where.not(id: id)
   end
 
   graphql methods: {
     awesomeness: Integer,
-    friend: Person,
+    friends: [ Person ],
   }
 end
 

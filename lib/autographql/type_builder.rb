@@ -67,14 +67,25 @@ module AutoGraphQL
       methods.each do |name, type|
         name = name.to_s
 
-        unless type.is_a? GraphQL::BaseType
-          # convert type
-
-          type = if type_map.include? type
-            type_map[type]
-          else
-            convert_type type
+        if type.is_a? Array
+          list_type = true
+          unless type.length == 1
+            raise ArgumentError, "invalid type: #{type}"
           end
+
+          type = type.first
+        else
+          list_type = false
+        end
+
+        type = if type_map.include? type
+          type_map[type]
+        else
+          convert_type type
+        end
+
+        if list_type
+          type = type.to_list_type
         end
 
         field = GraphQL::Field.define do
@@ -117,6 +128,8 @@ module AutoGraphQL
 
     # convert Active Record type to GraphQL type
     def convert_type type
+      return type if type.is_a? GraphQL::BaseType
+
       unless type.is_a? Symbol
         type = type.to_s.downcase.to_sym
       end
