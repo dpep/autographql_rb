@@ -43,7 +43,7 @@ class Person < ActiveRecord::Base
   end
 
   graphql methods: {
-    awesomeness: GraphQL::INT_TYPE,
+    awesomeness: Integer,
     friend: Person,
   }
 end

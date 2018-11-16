@@ -37,7 +37,15 @@ module AutoGraphQL
     def build_type model, opts
       column_types = Hash[model.columns_hash.map do |name, column|
         next nil unless opts[:fields].include? name.to_sym
-        [ name.to_sym, convert_type(model, column) ]
+
+        type = convert_type(column.type)
+        unless type
+          raise TypeError.new(
+            "unsupported type: '#{column.type}' for #{model.name}::#{column.name}"
+          )
+        end
+
+        [ name.to_sym, type ]
       end.compact]
 
       # create type
@@ -59,8 +67,14 @@ module AutoGraphQL
       methods.each do |name, type|
         name = name.to_s
 
-        if type_map.include? type
-          type = type_map[type]
+        unless type.is_a? GraphQL::BaseType
+          # convert type
+
+          type = if type_map.include? type
+            type_map[type]
+          else
+            convert_type type
+          end
         end
 
         field = GraphQL::Field.define do
@@ -102,22 +116,23 @@ module AutoGraphQL
 
 
     # convert Active Record type to GraphQL type
-    def convert_type model, column
+    def convert_type type
+      unless type.is_a? Symbol
+        type = type.to_s.downcase.to_sym
+      end
+
       {
         boolean: GraphQL::BOOLEAN_TYPE,
         date: GraphQL::Types::DATE,
         datetime: GraphQL::Types::ISO8601DateTime,
         decimal: GraphQL::Types::DECIMAL,
         float: GraphQL::FLOAT_TYPE,
+        int: GraphQL::INT_TYPE,
         integer: GraphQL::INT_TYPE,
         json: GraphQL::Types::JSON,
         string: GraphQL::STRING_TYPE,
         text: GraphQL::STRING_TYPE,
-      }.fetch column.type do
-        raise TypeError.new(
-          "unsupported type: '#{column.type}' for #{model.name}::#{column.name}"
-        )
-      end
+      }[type]
     end
 
 
