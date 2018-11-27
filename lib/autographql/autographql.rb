@@ -10,7 +10,7 @@ module AutoGraphQL
 
 
   def register model, options = {}
-    unless @@query_type.nil?
+    unless @@type_map.nil?
       raise RuntimeError, 'registration not allowed after generation.  please register model sooner'
     end
 
