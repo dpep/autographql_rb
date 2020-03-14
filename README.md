@@ -13,14 +13,13 @@ class User < ActiveRecord::Base
   graphql
 end
 
-# or via
-AutoGraphQL.register User
-
 # or only show specific fields
 class User < ActiveRecord::Base
   graphql fields: [ :name, :pic ]
 end
 
+# or via
+AutoGraphQL.register User
 
 # generate query schema
 puts GraphQL::Schema::Printer.print_schema(
