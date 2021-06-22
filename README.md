@@ -4,7 +4,7 @@ AutoGraphQL
 Automagically generate GraphQL types and queries for Active Record models
 
 ####  Usage
-```
+```ruby
 require 'autographql'
 
 
@@ -29,7 +29,7 @@ puts GraphQL::Schema::Printer.print_schema(
 
 ```
 ####  Full Example
-```
+```ruby
 require 'active_record'
 require 'autographql'
 
