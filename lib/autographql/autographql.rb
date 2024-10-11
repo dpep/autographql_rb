@@ -16,8 +16,7 @@ module AutoGraphQL
 
     # sanitize options
 
-    name = options.fetch(:name, model.name)
-    name.gsub! /:/, '_'
+    name = options.fetch(:name, model.name).gsub(/:/, '_')
 
     exclude = options.fetch(:exclude, []).map(&:to_sym)
 

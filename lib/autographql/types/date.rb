@@ -9,7 +9,7 @@ GraphQL::Types::DATE = GraphQL::ScalarType.define do
   coerce_input ->(value, ctx) do
     begin
       Date.parse(value)
-    rescue ArgumentError => e
+    rescue ArgumentError
       nil
     end
   end

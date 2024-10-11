@@ -5,7 +5,7 @@ require_relative 'autographql/object_type'
 
 
 module AutoGraphQL
-  VERSION = '0.0.4'
+  VERSION = Gem.loaded_specs["autographql"].version.to_s
 end
 
 
