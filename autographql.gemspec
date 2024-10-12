@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'graphql', '= 1.8.11'
 
   s.add_development_dependency 'debug'
-  s.add_development_dependency 'minitest', '~> 5'
-  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec', '>= 3.13'
+  s.add_development_dependency 'simplecov', '>= 0.22'
   s.add_development_dependency 'sqlite3', '= 1.6'
 end

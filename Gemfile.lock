@@ -24,6 +24,8 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    diff-lcs (1.5.1)
+    docile (1.4.1)
     graphql (1.8.11)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
@@ -35,11 +37,29 @@ GEM
     minitest (5.25.1)
     psych (5.1.2)
       stringio
-    rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
     reline (0.5.10)
       io-console (~> 0.5)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.1)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.13.1)
+    simplecov_json_formatter (0.1.4)
     sqlite3 (1.6.0)
       mini_portile2 (~> 2.8.0)
     stringio (3.1.1)
@@ -53,8 +73,8 @@ PLATFORMS
 DEPENDENCIES
   autographql!
   debug
-  minitest (~> 5)
-  rake
+  rspec (>= 3.13)
+  simplecov (>= 0.22)
   sqlite3 (= 1.6)
 
 BUNDLED WITH
