@@ -1,36 +1,35 @@
 describe 'GraphQL' do
-    # PetType not defined yet, so must use .define style
-    PersonType = GraphQL::ObjectType.define do
-    name 'Person'
+    class PersonType < GraphQL::Schema::Object
+      graphql_name 'Person'
 
-    field :id, types.ID
-    field :name, types.String
-    field :pets, types[PetType]
+      field :id, GraphQL::Types::ID
+      field :name, GraphQL::Types::String
+      field :pets, ["PetType"]
     end
 
 
     class PetType < GraphQL::Schema::Object
-    field :id, ID, null: false
-    field :name, String, null: false
-    field :person, PersonType, null: true
+      field :id, ID, null: false
+      field :name, String, null: false
+      field :person, PersonType, null: true
     end
 
 
     class QueryType < GraphQL::Schema::Object
-    # describe the field signature:
-    field :person, PersonType, null: true do
+      # describe the field signature:
+      field :person, PersonType, null: true do
         argument :id, ID, required: true
-    end
+      end
 
-    # then provide an implementation:
-    def person(id:)
-        Person.find(id)
-    end
+      # then provide an implementation:
+      def person(id:)
+          Person.find(id)
+      end
     end
 
 
     class Schema < GraphQL::Schema
-    query QueryType
+      query QueryType
     end
 
 

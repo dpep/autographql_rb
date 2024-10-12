@@ -18,14 +18,15 @@ module AutoGraphQL
 
         type_map.each do |model, type|
           # for each model, create an lookup function by ID
+          name = type.graphql_name.downcase
 
           # define field for this type
-          field type.name.downcase, type, null: true do
+          field name, type, null: true do
             argument :id, GraphQL::Types::ID, required: true
           end
 
           # create loader
-          define_method(type.name.downcase) do |id:|
+          define_method(name) do |id:|
             model.find id
           end
         end

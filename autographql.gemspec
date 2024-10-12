@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.summary     = 'AutoGraphQL'
   s.version     = '0.0.4'
 
-  # s.required_ruby_version = ">= 3"
+  s.required_ruby_version = ">= 3"
 
-  s.add_runtime_dependency 'activerecord', '~> 5'
-  s.add_runtime_dependency 'graphql', '= 1.8.11'
+  s.add_runtime_dependency 'activerecord', '~> 6'
+  s.add_runtime_dependency 'graphql', '~> 1.8'
 
   s.add_development_dependency 'debug'
   s.add_development_dependency 'rspec', '>= 3.13'

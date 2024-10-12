@@ -1,3 +1,4 @@
+require 'set'
 require_relative 'query_builder'
 
 
@@ -21,7 +22,7 @@ module AutoGraphQL
     exclude = options.fetch(:exclude, []).map(&:to_sym)
 
     # add `id' column by default
-    fields = [ :id ]
+    fields = Set.new([ :id ])
 
     # either use user specified fields or default to all
     fields += options.fetch(:fields) do

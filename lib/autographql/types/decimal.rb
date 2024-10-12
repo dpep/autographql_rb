@@ -1,16 +1,14 @@
-GraphQL::Types::DECIMAL = GraphQL::ScalarType.define do
-  name 'DECIMAL'
+GraphQL::Types::Decimal = Class.new(GraphQL::Schema::Scalar) do
+  graphql_name 'Decimal'
 
-  coerce_result ->(value, ctx) do
+  def self.coerce_input(value, context)
     value.to_s
   end
 
-  coerce_input ->(value, ctx) do
-    begin
-      BigDecimal(value)
-    rescue TypeError => e
-      nil
-    end
+  def self.coerce_result(ruby_value, context)
+    BigDecimal(ruby_value)
+  rescue TypeError => e
+    nil
   end
 end
 

@@ -1,16 +1,14 @@
-GraphQL::Types::DATE = GraphQL::ScalarType.define do
-  name 'DATE'
+GraphQL::Types::Date = Class.new(GraphQL::Schema::Scalar) do
+  graphql_name 'Date'
   description 'Date formatted as YYYY-MM-DD  (ISO 8601)'
 
-  coerce_result ->(value, ctx) do
-    value.to_s
+  def self.coerce_input(value, context)
+    Date.parse(value)
+  rescue ArgumentError
+    nil
   end
 
-  coerce_input ->(value, ctx) do
-    begin
-      Date.parse(value)
-    rescue ArgumentError
-      nil
-    end
+  def self.coerce_result(ruby_value, context)
+    ruby_value.to_s
   end
 end

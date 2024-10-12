@@ -3,7 +3,6 @@ require 'set'
 
 require_relative 'types/date'
 require_relative 'types/decimal'
-require_relative 'types/json'
 
 
 module AutoGraphQL
@@ -49,8 +48,8 @@ module AutoGraphQL
       end.compact]
 
       # create type
-      GraphQL::ObjectType.define do
-        name opts[:name]
+      Class.new(GraphQL::Schema::Object) do |gql_type|
+        graphql_name opts[:name]
         description opts[:description]
 
         opts[:fields].each do |f|
@@ -135,16 +134,16 @@ module AutoGraphQL
       end
 
       {
-        boolean: GraphQL::BOOLEAN_TYPE,
-        date: GraphQL::Types::DATE,
+        boolean: GraphQL::Types::Boolean,
+        date: GraphQL::Types::Date,
         datetime: GraphQL::Types::ISO8601DateTime,
-        decimal: GraphQL::Types::DECIMAL,
-        float: GraphQL::FLOAT_TYPE,
-        int: GraphQL::INT_TYPE,
-        integer: GraphQL::INT_TYPE,
+        decimal: GraphQL::Types::Decimal,
+        float: GraphQL::Types::Float,
+        int: GraphQL::Types::Int,
+        integer: GraphQL::Types::Int,
         json: GraphQL::Types::JSON,
-        string: GraphQL::STRING_TYPE,
-        text: GraphQL::STRING_TYPE,
+        string: GraphQL::Types::String,
+        text: GraphQL::Types::String,
       }[type]
     end
 
