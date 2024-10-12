@@ -1,4 +1,5 @@
 require 'active_record'
+require 'graphql'
 
 require_relative 'autographql/autographql'
 require_relative 'autographql/object_type'

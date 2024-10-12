@@ -1,7 +1,3 @@
-require 'graphql'
-require 'set'
-
-
 module AutoGraphQL
   module ObjectType
     protected

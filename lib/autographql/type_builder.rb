@@ -1,6 +1,3 @@
-require 'graphql'
-require 'set'
-
 require_relative 'types/date'
 require_relative 'types/decimal'
 
@@ -87,12 +84,10 @@ module AutoGraphQL
           type = type.to_list_type
         end
 
-        field = GraphQL::Field.define do
-          name name
-          type type
-        end
-
-        gql_type.fields[name] = field
+        gql_type.fields[name] = GraphQL::Schema::Field.new(
+          name: name,
+          type: type,
+        )
       end
     end
 
@@ -115,21 +110,19 @@ module AutoGraphQL
         end
 
         # create relationship field
-        gql_field = GraphQL::Field.define do
-          name field.name.to_s
-          type field_type
-        end
-
-        type.fields[field.name.to_s] = gql_field
+        type.fields[field.name.to_s] = GraphQL::Schema::Field.new(
+          name: field.name.to_s,
+          type: field_type,
+        )
       end
     end
 
 
     # convert Active Record type to GraphQL type
     def convert_type type
-      return type if type.is_a? GraphQL::BaseType
+      return type if type.is_a?(GraphQL::Schema::Member)
 
-      unless type.is_a? Symbol
+      unless type.is_a?(Symbol)
         type = type.to_s.downcase.to_sym
       end
 

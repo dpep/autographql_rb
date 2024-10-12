@@ -10,11 +10,11 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 3"
 
-  s.add_runtime_dependency 'activerecord', '~> 6'
-  s.add_runtime_dependency 'graphql', '~> 1.8'
+  s.add_runtime_dependency 'activerecord', '>= 6'
+  s.add_runtime_dependency 'graphql', '>= 2'
 
   s.add_development_dependency 'debug'
   s.add_development_dependency 'rspec', '>= 3.13'
   s.add_development_dependency 'simplecov', '>= 0.22'
-  s.add_development_dependency 'sqlite3', '= 1.6'
+  s.add_development_dependency 'sqlite3', '>= 2'
 end
