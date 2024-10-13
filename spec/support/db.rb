@@ -1,7 +1,3 @@
-require 'sqlite3'
-require 'active_record'
-
-
 # create in-memory database and connect
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',

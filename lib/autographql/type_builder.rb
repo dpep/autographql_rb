@@ -1,5 +1,5 @@
-require_relative 'types/date'
-require_relative 'types/decimal'
+# load types
+Dir["#{__dir__}/types/*.rb"].each { |f| require f }
 
 
 module AutoGraphQL

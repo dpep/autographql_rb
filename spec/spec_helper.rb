@@ -1,6 +1,8 @@
+require "active_record"
 require "debug"
 require "rspec"
 require "simplecov"
+require "sqlite3"
 
 SimpleCov.start do
   add_filter "/spec/"
