@@ -40,9 +40,10 @@ GEM
     docile (1.4.1)
     drb (2.2.1)
     fiber-storage (1.0.0)
-    graphql (2.4.8)
+    graphql (2.4.9)
       base64
       fiber-storage
+      logger
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
