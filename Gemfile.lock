@@ -40,7 +40,7 @@ GEM
     docile (1.4.1)
     drb (2.2.1)
     fiber-storage (1.0.0)
-    graphql (2.5.6)
+    graphql (2.5.7)
       base64
       fiber-storage
       logger
