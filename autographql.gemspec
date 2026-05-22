@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files * ':!:spec'`.split("\n")
   s.homepage    = 'https://github.com/dpep/autographql_rb'
   s.license     = 'MIT'
-  s.name        = File.basename(__FILE__, ".gemspec")
+  s.name        = 'autographql'
   s.summary     = 'AutoGraphQL'
   s.version     = '0.0.4'
 
