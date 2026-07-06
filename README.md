@@ -1,5 +1,7 @@
 AutoGraphQL
 ======
+![Gem](https://img.shields.io/gem/dt/autographql?style=plastic)
+[![codecov](https://codecov.io/gh/dpep/autographql_rb/branch/main/graph/badge.svg)](https://codecov.io/gh/dpep/autographql_rb)
 
 Automagically generate GraphQL types and queries for Active Record models
 
@@ -22,11 +24,11 @@ end
 AutoGraphQL.register User
 
 # generate query schema
-puts GraphQL::Schema::Printer.print_schema(
-  GraphQL::Schema.define(query: AutoGraphQL::QueryType)
-)
+class Schema < GraphQL::Schema
+  query AutoGraphQL::QueryType
+end
 
-
+puts GraphQL::Schema::Printer.print_schema(Schema)
 ```
 ####  Full Example
 ```ruby
@@ -72,6 +74,21 @@ query = "
 }"
 
 puts 'Daniel' == Schema.execute(query).values.first['person']['name']
+```
+
+
+----
+## Installation
+
+```ruby
+# Gemfile
+gem "autographql"
+```
+
+or
+
+```
+gem install autographql
 ```
 
 
