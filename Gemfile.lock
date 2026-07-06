@@ -104,9 +104,9 @@ PLATFORMS
 DEPENDENCIES
   autographql!
   debug
-  rspec (>= 3.13)
-  simplecov (>= 0.22)
-  sqlite3 (>= 2)
+  rspec
+  simplecov
+  sqlite3
 
 BUNDLED WITH
    2.5.21
