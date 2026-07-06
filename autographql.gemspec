@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Daniel Pepper"]
   s.description = "Automagically generate GraphQL types and queries"
   s.files       = `git ls-files * ':!:spec'`.split("\n")
-  s.homepage    = "https://github.com/dpep/rb_autographql"
+  s.homepage    = "https://github.com/dpep/autographql_rb"
   s.license     = "MIT"
   s.name        = "autographql"
   s.summary     = "AutoGraphQL"

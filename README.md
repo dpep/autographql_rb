@@ -1,7 +1,7 @@
 AutoGraphQL
 ======
 ![Gem](https://img.shields.io/gem/dt/autographql?style=plastic)
-[![codecov](https://codecov.io/gh/dpep/rb_autographql/branch/main/graph/badge.svg)](https://codecov.io/gh/dpep/rb_autographql)
+[![codecov](https://codecov.io/gh/dpep/autographql_rb/branch/main/graph/badge.svg)](https://codecov.io/gh/dpep/autographql_rb)
 
 Automagically generate GraphQL types and queries for Active Record models
 
