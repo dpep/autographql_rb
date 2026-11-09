@@ -101,8 +101,8 @@ DEPENDENCIES
   autographql!
   debug
   rspec
-  simplecov
+  simplecov (>= 1)
   sqlite3
 
 BUNDLED WITH
-   2.5.21
+  4.0.19
